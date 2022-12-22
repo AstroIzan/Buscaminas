@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activitat 2</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script defer src="../js/Activitat1.js"></script>
+</head>
+<body>
+    <!-- Seccion con el menu principal donde seleccionar la dificultad y ver partidas anteriores -->
+    <section id="dificultad">
+        <div class="container menu">
+            <h1> Benvingut a la guerra! </h1>
+            <p> Selecciona la dificultad que vulguis segons la quantitat de minas. </p>
+            <!-- Dificultades a elegir -->
+            <div class="line">
+                <div class="unpres" id="fr" onclick="seleccionar_dificultad(8)">
+                    <div class="line">
+                        <img src="../images/france.png" alt="">
+                        <h3> França </h3>
+                    </div>
+                    <p> Facil </p>
+                </div>
+                <div class="unpres" id="po" onclick="seleccionar_dificultad(6)">
+                    <div class="line">
+                        <img src="../images/poland.png" alt="">
+                        <h3> Polonia </h3>
+                    </div>
+                    <p> Normal </p>
+                </div>
+                <div class="unpres" id="uc" onclick="seleccionar_dificultad(4)"s>
+                    <div class="line">
+                        <img src="../images/ucraine.png" alt="">
+                        <h3> Ucrania </h3>
+                    </div>
+                    <p> Dificil </p>
+                </div>
+                <div class="unpres" id="ik" onclick="seleccionar_dificultad(2)"s>
+                    <div class="line">
+                        <img src="../images/irak.svg" alt="">
+                        <h3> Irak </h3>
+                    </div>
+                    <p class="dont-padding"> Ultra Hardcore </p>
+                </div>
+            </div>
+            <!-- Control de errores de la dificultad -->
+            <span id="error_difi">* Has d'introduir la dificultat </span>
+            <!-- Crear boton para establecer dificultad maxima -->
+            <div class="line">
+                <p>Vols fer proves? </p>
+                <label class="switch">
+                    <input type="checkbox" onclick="tester()">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <!-- Insert del nombre de usuario -->
+            <input type="text" id="username" placeholder="Username">
+            <!-- Control de errores del usuario -->
+            <span id="error_name">* Has d'introduir el nom d'usuari </span>
+            <!-- Botones a jugar y consultar partidas anteriores -->
+            <div class="line">
+                <button id="start" onclick="jugar()"> Iniciar </button>
+                <button id="ranking" onclick="mostrar()"> Ranking </button>
+            </div>
+        </div>  
+    </section>
+    <!-- Seccion con el juego y el tablero -->
+    <section id="juego">
+        <div class="container game">
+            <!-- Informacion varia del juego en tiempo real -->
+            <h1> Benvingut a la guerra! </h1>
+            <div class="line">
+                <p> Has escollit el pais </p>&nbsp;<p id="add_diff"></p><p>!</p>
+            </div>
+            <div class="line">
+                <p>Temps restant:&nbsp;</p><p id="contador"></p>
+            </div>
+            <div class="line">
+                <div class="marcador">
+                    <p>Nº Intents</p>
+                    <p id="n_intents"></p>
+                </div>
+                <div class="marcador">
+                    <p>Nº Encerts</p>
+                    <p id="aciertos">
+                </div>
+                <div class="marcador">
+                    <p>Nº Errors</p>
+                    <p id="fallos"></p>
+                </div>
+            </div>
+            <!-- Div donde se genera el tablero -->
+            <div id="tablero"></div>
+        </div>
+    </section>
+    <!-- Seccion en caso de ganar con su informacion de la partida -->
+    <section id="win">
+        <div class="container end">
+            <h1 id="add_text_win"></h1>
+            <div class="centrado">
+                <div class="left">
+                    <div class="resultado_left">
+                        <p>Username</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Dificultad</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Temps</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Encerts</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Errors</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="resultado_right">
+                        <p id="add_username_win"></p>
+                    </div>
+                    <div class="resultado_right">
+                        <p id="add_diff_win"></p>
+                    </div>
+                    <div class="resultado_right">
+                        <p id="add_time_win"></p>
+                    </div>  
+                    <div class="resultado_right">
+                        <p id="add_aciertos_win"></p>
+                    </div>
+                    <div class="resultado_right">
+                        <p id="add_fallos_win"></p>
+                    </div>
+                </div>
+            </div>
+            <button id="restart" onclick="reset()"> Reiniciar </button>
+        </div>
+    </section>
+    <!-- Seccion en caso de perder con su informacion de la partida -->
+    <section id="lose">
+        <div class="container end">
+            <h1 id="add_text_lose"></h1>
+            <div class="centrado">
+                <div class="left">
+                    <div class="resultado_left">
+                        <p>Username</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Dificultad</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Temps</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Encerts</p>
+                    </div>
+                    <div class="resultado_left">
+                        <p>Errors</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="resultado_right">
+                        <p id="add_username_lose"></p>
+                    </div>
+                    <div class="resultado_right">
+                        <p id="add_diff_lose"></p>
+                    </div>
+                    <div class="resultado_right">
+                        <p id="add_time_lose"></p>
+                    </div>  
+                    <div class="resultado_right">
+                        <p id="add_aciertos_lose"></p>
+                    </div>
+                    <div class="resultado_right">
+                        <p id="add_fallos_lose"></p>
+                    </div>
+                </div>
+            </div>
+            <button id="restart" onclick="reset()"> Reiniciar </button>
+        </div>
+    </section>
+    <!-- Seccion con las consultas sobre los resultados -->
+    <section id="consulta">
+        <div class="container datos">
+            <h1>Consultar datos</h1>
+            <div id="scroll">
+                <div id="datos">
+                </div>  
+            </div>
+            <button id="reset" onclick="reset()"> Volver </button>
+        </div>
+    </section>
+</body>
+</html>
